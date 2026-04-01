@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday wish</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg,#f191ac,#f6a6bb,#f4bbc9,#fae6e7,#f7eeed);
+    overflow: hidden;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* ===== TOOLBAR ===== */
+nav{
+position:fixed;
+top:20px;
+right:20px;
+z-index:100;
+background:rgba(255,255,255,0.5);
+backdrop-filter:blur(12px);
+border-radius:50px;
+padding:8px 14px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+.nav-links{
+display:flex;
+gap:8px;
+}
+
+.nav-link{
+padding:8px 16px;
+border-radius:50px;
+background:#f191ac;
+color:white;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+.nav-link:hover{
+background:#f6a6bb;
+color:#5c2a3a;
+}
+
+.nav-link.active{
+background:#f4bbc9;
+color:#5c2a3a;
+}
+
+/* Proposal Section */
+.container {
+    text-align: center;
+}
+
+.header_text {
+    font-size: 50px;
+    font-weight: bold;
+    color: #8a3a55;
+    margin-top: 20px;
+}
+
+.gif_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Buttons */
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 55px;
+}
+
+.btn {
+    background-color: #f191ac;
+    color: white;
+    padding: 15px 32px;
+    font-size: 16px;
+    margin: 4px;
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    transition: 0.3s;
+    position: relative;
+}
+
+.btn:hover {
+    background-color: #f6a6bb;
+    color: #5c2a3a;
+}
+
+/* Moving No Button */
+#noButton {
+    position: absolute;
+    transition: 0.5s;
+}
+
+/* Yes Screen */
+.yes-screen {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg,#f6a6bb,#f4bbc9,#fae6e7,#f7eeed);
+}
+
+.yes-screen h1 {
+    font-size: 50px;
+    color: #8a3a55;
+}
+
+.yes-screen p {
+    font-size: 30px;
+    color: #5c2a3a;
+    margin-top: 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- TOOLBAR -->
+<nav>
+<div class="nav-links">
+<a href="index.html" class="nav-link"><i class="fas fa-home"></i></a>
+<a href="memories.html" class="nav-link"><i class="fas fa-images"></i></a>
+<a href="reasons.html" class="nav-link"><i class="fas fa-heart"></i></a>
+<a href="heartbeat.html" class="nav-link"><i class="fas fa-heartbeat"></i></a>
+<a href="forever.html" class="nav-link active"><i class="fas fa-infinity"></i></a>
+</div>
+</nav>
+
+<!-- Proposal Section -->
+<div class="container" id="proposal">
+
+   <h1 class="header_text">Is it your birthday today? 🎂🎉</h1>
+
+    <div class="gif_container">
+        <img src="https://64.media.tumblr.com/44437aaa3af65ef5b5dc25b2cf1e81d1/6acc7d78ea83e207-45/s400x600/5b30035952803850ed3136fbe760ceff97ee8d19.gif" width="450">
+        <img src="https://media.tenor.com/8Q1S5zD7bGMAAAAC/cute-cat.gif" width="200">
+    </div>
+
+    <div class="buttons">
+       <button class="btn" id="yesButton">Yes 🎉</button>
+<button class="btn" id="noButton">No 😅</button>
+    </div>
+
+</div>
+
+<!-- YES SCREEN -->
+<div class="yes-screen" id="yesScreen">
+
+    <h1>Hurray 🥳</h1>
+
+    <div class="gif_container">
+        <img src="https://i.gifer.com/Pak.gif" width="500">
+        <img src="https://media.tenor.com/XO0D6E8WqXQAAAAC/cat-love.gif" width="220">
+    </div>
+
+    <p>Wishing you endless happiness, smiles, and love 💖🎉</p>
+
+</div>
+
+<script>
+
+// Move No Button randomly
+const noBtn = document.getElementById("noButton");
+noBtn.addEventListener("mouseover", function() {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+// Yes Button click
+const yesBtn = document.getElementById("yesButton");
+yesBtn.addEventListener("click", function() {
+    document.getElementById("proposal").style.display = "none";
+    document.getElementById("yesScreen").style.display = "flex";
+});
+
+</script>
+
+</body>
+</html>

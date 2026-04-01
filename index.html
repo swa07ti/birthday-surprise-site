@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Day</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(
+        135deg,
+        #461220,
+        #8c2f39,
+        #b23a48,
+        #fcb9b2,
+        #fed0bb
+    );
+    font-family: 'Playfair Display', serif;
+    color: #fff5f3;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ===== NAVIGATION ===== */
+nav {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 1000;
+    background: rgba(252, 185, 178, 0.25);
+    backdrop-filter: blur(15px);
+    border-radius: 50px;
+    padding: 12px;
+    box-shadow: 0 8px 25px rgba(70, 18, 32, 0.4);
+    animation: floatNav 6s infinite ease-in-out;
+}
+
+.nav-links {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-link {
+    padding: 10px 18px;
+    border-radius: 40px;
+    background: #b23a48;
+    color: #fed0bb;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.3s ease;
+}
+
+.nav-link:hover {
+    background: #fcb9b2;
+    color: #461220;
+    transform: translateY(-3px);
+}
+
+.nav-link.active {
+    background: #461220;
+    color: #fed0bb;
+}
+
+@keyframes floatNav {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* ===== MAIN CONTENT ===== */
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    z-index: 10;
+    position: relative;
+}
+
+.main-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 6rem;
+    font-weight: 800;
+    color: #fed0bb;
+    margin-bottom: 10px;
+    opacity: 0;
+    text-shadow: 0 0 25px rgba(252, 185, 178, 0.6);
+}
+
+.love-quote {
+    font-size: 1.8rem;
+    color: #fff5f3;
+    margin-top: 10px;
+    opacity: 0;
+}
+
+.sub-text {
+    font-size: 1.5rem;
+    margin-top: 15px;
+    opacity: 0;
+    color: #fcb9b2;
+}
+
+/* ===== BACKGROUND EFFECTS ===== */
+.hearts-container,
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.heart {
+    position: absolute;
+    font-size: 30px;
+    opacity: 0;
+    animation: floatHeart linear infinite;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(100vh) scale(0.8);
+        opacity: 0.7;
+    }
+    50% { opacity: 1; }
+    100% {
+        transform: translateY(-100vh) scale(1.2);
+        opacity: 0;
+    }
+}
+
+.particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    opacity: 0.8;
+    box-shadow: 0 0 15px currentColor;
+}
+
+@media (max-width: 600px) {
+    .main-title { font-size: 3.5rem; }
+    .love-quote { font-size: 1.2rem; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+        <a href="memories.html" class="nav-link"><i class="fas fa-images"></i> Memories</a>
+        <a href="reasons.html" class="nav-link"><i class="fas fa-heart"></i> Reasons</a>
+        <a href="heartbeat.html" class="nav-link"><i class="fas fa-heartbeat"></i> Heartbeat</a>
+        <a href="forever.html" class="nav-link"><i class="fas fa-infinity"></i> Forever</a>
+    </div>
+</nav>
+
+<div class="hearts-container"></div>
+<div class="particles-container"></div>
+
+<div class="container">
+    <h1 class="main-title">Happy Birthday Day</h1>
+    <p class="love-quote">“I wish you always be healthy and happy”</p>
+    <p class="sub-text">With love 💖</p>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    gsap.to(".main-title", { opacity: 1, y: -20, duration: 2 });
+    gsap.to(".love-quote", { opacity: 1, delay: 1, duration: 2 });
+    gsap.to(".sub-text", { opacity: 1, delay: 2, duration: 2 });
+
+    const heartEmojis = ["💗", "💓", "💞", "💝", "❤️"];
+
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (20 + Math.random() * 30) + "px";
+        heart.style.animationDuration = (15 + Math.random() * 20) + "s";
+
+        document.querySelector(".hearts-container").appendChild(heart);
+        setTimeout(() => heart.remove(), 35000);
+    }
+
+    setInterval(createHeart, 400);
+
+    document.addEventListener("mousemove", (e) => {
+        if (Math.random() > 0.6) {
+            const particle = document.createElement("div");
+            particle.className = "particle";
+
+            particle.style.left = e.clientX + "px";
+            particle.style.top = e.clientY + "px";
+            particle.style.backgroundColor = `hsl(${Math.random() * 20 + 350}, 80%, 75%)`;
+
+            document.querySelector(".particles-container").appendChild(particle);
+
+            gsap.to(particle, {
+                x: (Math.random() - 0.5) * 200,
+                y: (Math.random() - 0.5) * 200,
+                opacity: 0,
+                scale: 0,
+                duration: 1.5,
+                onComplete: () => particle.remove()
+            });
+        }
+    });
+
+});
+</script>
+
+</body>
+</html>

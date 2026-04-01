@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enchanted Love Memory Lane</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Playfair Display',serif;
+background:linear-gradient(135deg,#450920,#a53860,#da627d,#ffa5ab,#f9dbbd);
+color:#fff;
+overflow-x:hidden;
+min-height:100vh;
+}
+
+/* Floating Background */
+.hearts-container,.sparkles-container{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+pointer-events:none;
+z-index:1;
+}
+
+.heart{
+position:absolute;
+font-size:22px;
+animation:float 18s linear infinite;
+opacity:0.7;
+}
+
+.sparkle{
+position:absolute;
+width:8px;height:8px;
+border-radius:50%;
+background:#f9dbbd;
+box-shadow:0 0 15px 3px #f9dbbd;
+animation:sparkleFloat 12s linear infinite;
+opacity:0.8;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh) rotate(0deg);}
+100%{transform:translateY(-100vh) rotate(360deg);}
+}
+
+@keyframes sparkleFloat{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-100vh);}
+}
+
+/* Navigation */
+nav{
+position:fixed;
+top:30px;
+right:30px;
+z-index:1000;
+display:flex;
+gap:15px;
+backdrop-filter:blur(15px);
+background:rgba(255,255,255,0.08);
+border-radius:50px;
+padding:12px;
+animation:floatNav 8s infinite ease-in-out;
+}
+
+.nav-link{
+width:55px;height:55px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+text-decoration:none;font-size:22px;
+color:#fff;
+background:linear-gradient(145deg,#da627d,#a53860);
+transition:.4s;
+}
+
+.nav-link:hover{
+transform:translateY(-8px) scale(1.1);
+background:linear-gradient(145deg,#ffa5ab,#da627d);
+}
+
+.nav-link.active{
+background:linear-gradient(145deg,#f9dbbd,#da627d);
+}
+
+/* Main Container */
+.container{
+max-width:1400px;
+margin:0 auto;
+padding:140px 30px 100px;
+position:relative;
+z-index:10;
+}
+
+/* Header */
+.header{text-align:center;margin-bottom:80px;}
+
+.header h1{
+font-family:'Great Vibes',cursive;
+font-size:6rem;
+background:linear-gradient(45deg,#fff,#f9dbbd);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+opacity:0;
+transform:translateY(-50px);
+}
+
+.header p{
+font-family:'Dancing Script',cursive;
+font-size:2.5rem;
+opacity:0;
+transform:translateY(30px);
+}
+
+/* Timeline */
+.timeline-container{position:relative;max-width:1100px;margin:auto;}
+
+.timeline-line{
+position:absolute;
+left:50%;
+transform:translateX(-50%);
+height:100%;
+width:6px;
+background:linear-gradient(to bottom,#f9dbbd,#da627d,#450920);
+border-radius:3px;
+box-shadow:0 0 20px rgba(255,255,255,0.4);
+}
+
+.memories-container{
+position:relative;
+z-index:5;
+display:grid;
+gap:120px;
+}
+
+/* Memory Card */
+.memory-card{
+display:flex;
+position:relative;
+opacity:0;
+transform:translateY(80px);
+display:flex;
+ align-items:stretch; 
+}
+
+.memory-card:nth-child(even){
+flex-direction:row-reverse;
+}
+
+.memory-dot{
+position:absolute;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+width:40px;height:40px;
+border-radius:50%;
+background:linear-gradient(145deg,#f9dbbd,#a53860);
+border:4px solid white;
+box-shadow:0 0 30px rgba(255,255,255,0.6);
+z-index:10;
+animation:pulseDot 3s infinite ease-in-out;
+}
+
+@keyframes pulseDot{
+0%,100%{transform:translate(-50%,-50%) scale(1);}
+50%{transform:translate(-50%,-50%) scale(1.2);}
+}
+
+.memory-content{
+width:46%;
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(15px);
+border-radius:25px;
+padding:40px;
+box-shadow:0 20px 50px rgba(0,0,0,.3);
+border:1px solid rgba(255,255,255,0.2);
+}
+
+.memory-content h2{
+font-size:2.2rem;
+margin-bottom:15px;
+}
+
+.memory-date{
+font-size:1.2rem;
+margin-bottom:20px;
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+.memory-quote{
+font-family:'Dancing Script',cursive;
+font-size:2rem;
+margin-bottom:20px;
+}
+
+.memory-description{
+font-size:1.2rem;
+line-height:1.6;
+opacity:0;
+max-height:0;
+overflow:hidden;
+transform:translateY(20px);
+transition:all 0.6s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+
+.memory-card:hover .memory-description{
+opacity:1;
+max-height:500px;
+transform:translateY(-10px);
+}
+
+
+.memory-image{
+    width:46%;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 25px 50px rgba(0,0,0,.4);
+    display:flex;
+}
+
+
+.memory-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+
+/* Footer */
+.footer{text-align:center;margin-top:100px;}
+
+.footer p{
+font-family:'Dancing Script',cursive;
+font-size:3rem;
+opacity:0;
+transform:translateY(30px);
+}
+
+@keyframes floatNav{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts-container" id="hearts"></div>
+<div class="sparkles-container" id="sparkles"></div>
+
+<nav>
+<a href="index.html" class="nav-link"><i class="fas fa-home"></i></a>
+<a href="memories.html" class="nav-link active"><i class="fas fa-images"></i></a>
+<a href="reasons.html" class="nav-link"><i class="fas fa-heart"></i></a>
+<a href="heartbeat.html" class="nav-link"><i class="fas fa-heartbeat"></i></a>
+<a href="forever.html" class="nav-link"><i class="fas fa-infinity"></i></a>
+</nav>
+
+<div class="container">
+
+<div class="header">
+<h1 id="main-title">Our Journey</h1>
+<p id="subtitle">Some memories are too precious to live only in the heart..❤️</p>
+</div>
+
+<div class="timeline-container">
+<div class="timeline-line"></div>
+
+<div class="memories-container">
+
+<!-- Memory 1 -->
+<div class="memory-card">
+<div class="memory-dot"></div>
+<div class="memory-content">
+<h2>First Memory</h2>
+<div class="memory-date"><i class="fas fa-calendar-alt"></i> Dec 1, 2020</div>
+<p class="memory-quote">The beach</p>
+<p class="memory-description">(description of the memory)</p>
+</div>
+<div class="memory-image">
+<img src="memory1.jpeg">
+</div>
+</div>
+
+<!-- Memory 2 -->
+<div class="memory-card">
+<div class="memory-dot"></div>
+<div class="memory-content">
+<h2>second memory</h2>
+<div class="memory-date"><i class="fas fa-calendar-alt"></i> Feb 7, 2020</div>
+<p class="memory-quote">(any moment)</p>
+<p class="memory-description">(descripition)</p>
+</div>
+<div class="memory-image">
+<img src="memory2.jpeg">
+</div>
+</div>
+
+<!-- Memory 3 -->
+<div class="memory-card">
+<div class="memory-dot"></div>
+<div class="memory-content">
+<h2>third memory</h2>
+<div class="memory-date"><i class="fas fa-calendar-alt"></i> Feb, 2020</div>
+<p class="memory-quote">(short line)</p>
+<p class="memory-description">(description).</p>
+</div>
+<div class="memory-image">
+<img src="/memory3.jpeg">
+</div>
+</div>
+
+<!-- Memory 4 -->
+<div class="memory-card">
+<div class="memory-dot"></div>
+<div class="memory-content">
+<h2>fourth memory</h2>
+<div class="memory-date"><i class="fas fa-calendar-alt"></i> Feb 11, 2020</div>
+<p class="memory-quote">(short line)</p>
+<p class="memory-description">(description)</p>
+</div>
+<div class="memory-image">
+<img src="memory4.jpeg">
+</div>
+</div>
+
+<!-- Memory 5 -->
+<div class="memory-card">
+<div class="memory-dot"></div>
+<div class="memory-content">
+<h2>fifth memory</h2>
+<div class="memory-date"><i class="fas fa-calendar-alt"></i> March 13, 2020</div>
+<p class="memory-quote">(short line)</p>
+<p class="memory-description">(description)</p>
+</div>
+<div class="memory-image">
+<img src="memory5.jpeg">
+</div>
+</div>
+
+<!-- Memory 6 -->
+<div class="memory-card">
+<div class="memory-dot"></div>
+<div class="memory-content">
+<h2>sixth memory</h2>
+<div class="memory-date"><i class="fas fa-calendar-alt"></i> July 21, 2020</div>
+<p class="memory-quote">(description)</p>
+<p class="memory-description">(description)</p>
+</div>
+<div class="memory-image">
+<img src="memory6.jpeg">
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="footer">
+<p id="footer-text">Always be happy</p>
+</div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.to('#main-title',{opacity:1,y:0,duration:1.5});
+gsap.to('#subtitle',{opacity:1,y:0,duration:1.5,delay:.5});
+
+document.querySelectorAll('.memory-card').forEach(card=>{
+gsap.to(card,{
+opacity:1,y:0,duration:1.2,
+scrollTrigger:{trigger:card,start:'top 85%'}
+});
+});
+
+gsap.to('#footer-text',{
+opacity:1,y:0,duration:1.2,
+scrollTrigger:{trigger:'.footer',start:'top 90%'}
+});
+
+/* Floating Hearts */
+const hearts=document.getElementById('hearts');
+function createHeart(){
+const heart=document.createElement('div');
+heart.className='heart';
+heart.innerHTML='❤️';
+heart.style.left=Math.random()*100+'vw';
+heart.style.animationDuration=12+Math.random()*8+'s';
+hearts.appendChild(heart);
+setTimeout(()=>heart.remove(),20000);
+}
+setInterval(createHeart,600);
+
+/* Sparkles */
+const sparkles=document.getElementById('sparkles');
+function createSparkle(){
+const s=document.createElement('div');
+s.className='sparkle';
+s.style.left=Math.random()*100+'vw';
+s.style.animationDuration=10+Math.random()*8+'s';
+sparkles.appendChild(s);
+setTimeout(()=>s.remove(),18000);
+}
+setInterval(createSparkle,400);
+
+});
+</script>
+
+</body>
+</html>

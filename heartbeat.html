@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heartbeat Symphony</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+min-height:100vh;
+font-family:'Dancing Script',cursive;
+color:white;
+overflow-x:hidden;
+position:relative;
+}
+
+/* ===== Blurred Cinematic Background ===== */
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:url("bg-love.jpg") center/cover no-repeat;
+filter:blur(6px) brightness(0.6);
+z-index:-2;
+}
+
+/* Soft purple romantic overlay */
+body::after{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(
+to bottom,
+rgba(20,0,40,0.5),
+rgba(80,0,90,0.6),
+rgba(40,0,60,0.7)
+);
+z-index:-1;
+}
+
+/* ===== Navigation ===== */
+nav{
+position:fixed;
+top:20px;
+right:20px;
+z-index:100;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(10px);
+border-radius:50px;
+padding:8px;
+}
+
+.nav-links{
+display:flex;
+gap:5px;
+}
+
+.nav-link{
+padding:8px 16px;
+border-radius:50px;
+background:rgba(255,255,255,0.4);
+color:#7e22ce;
+text-decoration:none;
+font-size:14px;
+font-weight:bold;
+transition:0.3s;
+}
+
+.nav-link:hover{
+background:rgba(236,72,153,0.7);
+color:white;
+}
+
+.nav-link.active{
+background:#ec4899;
+color:white;
+}
+
+/* ===== Main container ===== */
+.container{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+padding:20px;
+position:relative;
+z-index:10;
+}
+
+/* ===== Title ===== */
+.title{
+font-family:'Great Vibes',cursive;
+font-size:4.8rem;
+text-align:center;
+margin-bottom:40px;
+color:#ffd1ff;
+text-shadow:0 0 25px rgba(255,200,255,0.6);
+}
+
+/* ===== Heart ===== */
+.heart-container{
+position:relative;
+cursor:pointer;
+margin-bottom:30px;
+}
+
+.heart{
+font-size:8rem;
+color:#ff6b9e;
+text-shadow:0 0 30px rgba(255,105,180,0.8);
+}
+
+.heart-glow{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:radial-gradient(circle,#ff6b9e,transparent);
+filter:blur(30px);
+opacity:0.5;
+animation:pulse 2s infinite alternate;
+z-index:-1;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+100%{transform:scale(1.2);}
+}
+
+.heart-message{
+font-size:1.8rem;
+color:#ffe6ff;
+}
+
+/* ===== ECG Section ===== */
+.ecg-section{
+width:100%;
+max-width:800px;
+background:rgba(0,0,0,0.35);
+backdrop-filter:blur(12px);
+border-radius:20px;
+padding:25px;
+margin-bottom:40px;
+border:1px solid rgba(255,255,255,0.1);
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.ecg-title{
+text-align:center;
+font-size:1.8rem;
+margin-bottom:20px;
+color:#ffd1ff;
+}
+
+.ecg-container{
+height:150px;
+position:relative;
+overflow:hidden;
+}
+
+.ecg-line{
+position:absolute;
+top:50%;
+left:0;
+width:100%;
+height:4px;
+background:#ff6b9e;
+box-shadow:0 0 12px #ff6b9e;
+}
+
+.ecg-waveform{
+position:absolute;
+top:50%;
+left:0;
+width:200%;
+height:100%;
+background:repeating-linear-gradient(
+90deg,
+transparent,
+transparent 20px,
+#ff6b9e 20px,
+#ff6b9e 100px
+);
+background-size:120px 100%;
+transform:translateY(-50%);
+animation:moveWave 1.1s linear infinite;
+}
+
+@keyframes moveWave{
+0%{transform:translate(0,-50%);}
+100%{transform:translate(-120px,-50%);}
+}
+
+.ecg-message{
+text-align:center;
+font-size:1.5rem;
+margin-top:20px;
+color:#ffc0ff;
+}
+
+/* ===== Love Message ===== */
+.love-message{
+width:100%;
+max-width:800px;
+background:linear-gradient(45deg,#6a0dad,#b000b5);
+border-radius:20px;
+padding:30px;
+text-align:center;
+opacity:0;
+transform:translateY(30px);
+transition:1s;
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+.love-message.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.love-message h2{
+font-family:'Great Vibes',cursive;
+font-size:3rem;
+color:#ffd1ff;
+margin-bottom:20px;
+}
+
+.love-message p{
+font-size:1.8rem;
+color:#ffe6ff;
+line-height:1.6;
+}
+
+/* ===== Footer ===== */
+.footer{
+position:absolute;
+bottom:30px;
+width:100%;
+text-align:center;
+font-size:1.5rem;
+color:#ffc0ff;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio id="bg-music" loop>
+    <source src="music/love-song.mp3" type="audio/mpeg">
+</audio>
+
+<nav>
+<div class="nav-links">
+<a href="index.html" class="nav-link">Home</a>
+<a href="memories.html" class="nav-link">Memories</a>
+<a href="reasons.html" class="nav-link">Reasons</a>
+<a href="heartbeat.html" class="nav-link active">Heartbeat</a>
+<a href="forever.html" class="nav-link">Forever</a>
+</div>
+</nav>
+
+<div class="container">
+
+<h1 class="title">Your favoruite song</h1>
+
+<div class="heart-container" id="heart-container">
+<div class="heart" id="heart">🎂</div>
+<div class="heart-glow"></div>
+</div>
+
+<p class="heart-message" id="heart-message">
+Tap the cake to celebrate! 🎉
+</p>
+
+<div class="ecg-section">
+<h2 class="ecg-title">Birthday Celebration Meter 🎈</h2>
+<div class="ecg-container">
+<div class="ecg-line"></div>
+<div class="ecg-waveform"></div>
+</div>
+<p class="ecg-message">Every click adds more happiness 🎁</p>
+</div>
+
+<div class="love-message" id="love-message">
+<h2>Birthday Wishes 🎂</h2>
+<p>
+Wishing you a day full of happiness, laughter, and unforgettable moments.
+May all your dreams come true and your smile never fade. 💖✨
+</p>
+</div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+
+const heart=document.getElementById("heart");
+const heartContainer=document.getElementById("heart-container");
+const heartMessage=document.getElementById("heart-message");
+const loveMessage=document.getElementById("love-message");
+const music=document.getElementById("bg-music");
+
+let beats=0;
+
+/* 🎵 Auto Play With Fade-In */
+music.volume = 0;
+music.play().then(()=>{
+    gsap.to(music,{volume:1,duration:3});
+}).catch(()=>{
+    // If browser blocks autoplay, start on first click anywhere
+    document.body.addEventListener("click",function(){
+        if(music.paused){
+            music.volume=0;
+            music.play();
+            gsap.to(music,{volume:1,duration:3});
+        }
+    },{once:true});
+});
+
+/* Heartbeat Animation */
+const heartbeat=gsap.timeline({repeat:-1});
+heartbeat.to(heart,{scale:1.2,duration:0.2})
+.to(heart,{scale:1,duration:0.2})
+.to(heart,{scale:1.2,duration:0.2,delay:0.3})
+.to(heart,{scale:1,duration:0.2});
+
+heartContainer.addEventListener("click",function(){
+beats++;
+heartMessage.textContent=`Heart skipped ${beats} beat${beats>1?"s":""} for you!`    ;
+
+gsap.to(heart,{scale:1.5,duration:0.2,yoyo:true,repeat:1});
+
+if(beats>=3){
+loveMessage.classList.add("show");
+}
+});
+
+});
+</script>
+
+</body>
+</html>

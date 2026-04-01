@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Special Wish For You 🎁</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Dancing Script',cursive;
+background:linear-gradient(135deg,#461220,#8c2f39);
+min-height:100vh;
+overflow-x:hidden;
+color:#fed0bb;
+position:relative;
+}
+
+/* ===== Romantic Splash Background ===== */
+.splash{
+position:fixed;
+width:600px;
+height:600px;
+border-radius:50%;
+filter:blur(120px);
+opacity:0.25;
+z-index:0;
+animation:moveSplash 18s infinite alternate ease-in-out;
+}
+
+.splash.one{
+background:#b23a48;
+top:-150px;
+left:-150px;
+}
+
+.splash.two{
+background:#fcb9b2;
+bottom:-200px;
+right:-150px;
+}
+
+@keyframes moveSplash{
+0%{transform:translate(0,0) scale(1);}
+50%{transform:translate(40px,-30px) scale(1.1);}
+100%{transform:translate(-30px,40px) scale(1);}
+}
+
+/* ===== NAVBAR ===== */
+nav{
+position:fixed;
+top:25px;
+right:25px;
+z-index:10;
+background:rgba(252,185,178,0.15);
+backdrop-filter:blur(15px);
+border-radius:50px;
+padding:10px 18px;
+box-shadow:0 8px 25px rgba(0,0,0,0.4);
+}
+
+.nav-links{
+display:flex;
+gap:10px;
+}
+
+.nav-link{
+padding:10px 18px;
+border-radius:50px;
+background:#b23a48;
+color:#fed0bb;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+.nav-link:hover{
+background:#fcb9b2;
+color:#461220;
+transform:translateY(-3px);
+}
+
+.nav-link.active{
+background:#fcb9b2;
+color:#461220;
+}
+
+/* ===== CONTENT ===== */
+.container{
+position:relative;
+z-index:5;
+max-width:1200px;
+margin:auto;
+padding:140px 20px 100px;
+text-align:center;
+}
+
+.header h1{
+font-family:'Great Vibes',cursive;
+font-size:6rem;
+color:#fed0bb;
+text-shadow:0 0 30px rgba(252,185,178,0.8);
+opacity:0;
+}
+
+.header p{
+font-size:2rem;
+margin-top:10px;
+color:#fcb9b2;
+font-weight:bold;
+opacity:0;
+}
+
+/* ===== DIARY BOX ===== */
+.reasons-container{
+background:rgba(252,185,178,0.08);
+backdrop-filter:blur(25px);
+border-radius:25px;
+padding:60px;
+margin-top:50px;
+box-shadow:0 30px 60px rgba(0,0,0,0.4);
+border:1px solid rgba(252,185,178,0.25);
+}
+
+/* ===== GRID ===== */
+.reasons-list{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:40px;
+}
+
+/* ===== FLIP CARD ===== */
+.reason-card{
+perspective:1000px;
+}
+
+.card-inner{
+position:relative;
+width:100%;
+height:220px;
+transform-style:preserve-3d;
+transition:transform 0.8s;
+}
+
+.reason-card:hover .card-inner{
+transform:rotateY(180deg);
+}
+
+.card-front,
+.card-back{
+position:absolute;
+width:100%;
+height:100%;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+backface-visibility:hidden;
+box-shadow:0 15px 30px rgba(0,0,0,0.4);
+}
+
+.card-front{
+background:linear-gradient(135deg,#b23a48,#8c2f39);
+color:#fed0bb;
+font-size:1.8rem;
+font-weight:bold;
+}
+
+.card-back{
+background:linear-gradient(135deg,#fcb9b2,#fed0bb);
+transform:rotateY(180deg);
+color:#461220;
+font-size:1.6rem;
+font-weight:bold;
+text-align:center;
+}
+
+/* Responsive */
+@media(max-width:600px){
+.header h1{font-size:3.5rem;}
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- Romantic Splash Background -->
+<div class="splash one"></div>
+<div class="splash two"></div>
+
+<nav>
+<div class="nav-links">
+<a href="index.html" class="nav-link"><i class="fas fa-home"></i></a>
+<a href="memories.html" class="nav-link"><i class="fas fa-images"></i></a>
+<a href="reasons.html" class="nav-link active"><i class="fas fa-heart"></i></a>
+<a href="heartbeat.html" class="nav-link"><i class="fas fa-heartbeat"></i></a>
+<a href="forever.html" class="nav-link"><i class="fas fa-infinity"></i></a>
+</div>
+</nav>
+
+<div class="container">
+<div class="header">
+<h1 id="main-title">I adore you because...❤️</h1>
+<p id="subtitle">A Special Wish For You 🎁</p>
+</div>
+
+<div class="reasons-container">
+<div class="reasons-list" id="reasons-list"></div>
+</div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+
+const reasons=[
+"May your day be filled with happiness and laughter 🎉",
+"You deserve all the love and success in the world 💖",
+"Keep smiling always, it suits you the best 😊",
+"May all your dreams come true this year ✨",
+"Stay amazing just the way you are 💫",
+"You make life more beautiful 🌸"
+];
+
+const list=document.getElementById("reasons-list");
+
+reasons.forEach(reason=>{
+const card=document.createElement("div");
+card.className="reason-card";
+card.innerHTML=`
+<div class="card-inner">
+<div class="card-front">A Special Wish For You 🎁</div>
+<div class="card-back">${reason}</div>
+</div>
+`;
+list.appendChild(card);
+});
+
+gsap.to("#main-title",{opacity:1,duration:1.5});
+gsap.to("#subtitle",{opacity:1,duration:1.2,delay:0.8});
+
+});
+</script>
+
+</body>
+</html>
